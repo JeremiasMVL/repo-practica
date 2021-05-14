@@ -25,7 +25,6 @@ public class Alumno {
 		this.nombre = nombre;
 	}
 
-
 	public Integer getId() {
 		return id;
 	}
@@ -37,6 +36,10 @@ public class Alumno {
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	public void getExamenes() {
+		
 	}
 
 	public void addExamen(Examen e) {

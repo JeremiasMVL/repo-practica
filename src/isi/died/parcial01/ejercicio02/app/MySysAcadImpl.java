@@ -34,13 +34,24 @@ public class MySysAcadImpl implements MySysAcad {
 	
 
 	@Override
-	public void inscribirAlumnoCursada(Docente d, Alumno a, Materia m, Integer cicloLectivo) {
+	public void inscribirAlumnoCursada(Docente d, Alumno a, Materia m, Integer cicloLectivo) throws noSePudoGuardarInscripcionException {
+		List<Materia> correlativas = m.getCorrelativasRendir();
+		List<Materia> aprobadas = new ArrayList<Materia>();
+		
+		aprobadas = a.
+		
+		
 		Inscripcion insc = new Inscripcion(cicloLectivo,Inscripcion.Estado.CURSANDO);
 		d.agregarInscripcion(insc);
 		a.addCursada(insc);
 		m.addInscripcion(insc);
-		// DESCOMENTAR Y gestionar excepcion
-		// DB.guardar(insc);
+		
+		try {
+			DB.guardar(insc);
+		} catch(BaseDeDatosExcepcion e) {
+			throw new noSePudoGuardarInscripcionException();
+		}
+	
 	}
 
 	@Override
