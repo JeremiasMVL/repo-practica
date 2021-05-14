@@ -38,8 +38,8 @@ public class Alumno {
 		this.nombre = nombre;
 	}
 	
-	public void getExamenes() {
-		
+	public List<Examen> getExamenes() {
+		return examenes;
 	}
 
 	public void addExamen(Examen e) {

@@ -2,8 +2,10 @@ package isi.died.parcial01.ejercicio02.app;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import isi.died.parcial01.ejercicio02.db.BaseDeDatos;
+import isi.died.parcial01.ejercicio02.db.BaseDeDatosExcepcion;
 import isi.died.parcial01.ejercicio02.dominio.*;
 
 
@@ -34,12 +36,19 @@ public class MySysAcadImpl implements MySysAcad {
 	
 
 	@Override
-	public void inscribirAlumnoCursada(Docente d, Alumno a, Materia m, Integer cicloLectivo) throws noSePudoGuardarInscripcionException {
+	public void inscribirAlumnoCursada(Docente d, Alumno a, Materia m, Integer cicloLectivo) throws noSePudoGuardarInscripcionException, noTieneAprobadaCorrelativaException {
 		List<Materia> correlativas = m.getCorrelativasRendir();
 		List<Materia> aprobadas = new ArrayList<Materia>();
 		
-		aprobadas = a.
-		
+		aprobadas = a.getExamenes()
+				.stream()
+				.filter(e -> e.getNota() > 6)
+				.map(e -> e.getMateria())
+				.collect(Collectors.toList());
+		for(Materia mc:correlativas) {
+			if(aprobadas.contains(mc))
+				throw new noTieneAprobadaCorrelativaException();
+		}
 		
 		Inscripcion insc = new Inscripcion(cicloLectivo,Inscripcion.Estado.CURSANDO);
 		d.agregarInscripcion(insc);
@@ -64,5 +73,20 @@ public class MySysAcadImpl implements MySysAcad {
 		// DB.guardar(e);
 	}
 	
+	//NO LLEGUE CON EL HORARIO para Pregunta 3 del cuestionario
+	
+	public void registrarNota(Examen e, Integer n) {
+		e.setNota(n);
+		
+		if(n>=6) {
+			//HACER HACER
+			//busco ultima
+			
+			.sort())
+		}
+		
+	public List<Examen> topNExamenes(Materia m, Integer n)
+		
+	}
 
 }
